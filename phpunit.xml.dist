@@ -1,0 +1,11 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="Api">
+            <directory>tests/Api</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="API_Username" value="" />
+        <env name="API_Password" value="" />
+    </php>
+</phpunit>
