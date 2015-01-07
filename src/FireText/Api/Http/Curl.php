@@ -63,6 +63,6 @@ class Curl implements Client
 
     public function __clone()
     {
-        $this->curl = curl_copy_handle($this->curl);
+        $this->curl = curl_copy_handle($this->getCurl());
     }
 }

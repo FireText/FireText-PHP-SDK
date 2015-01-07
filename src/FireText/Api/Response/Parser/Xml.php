@@ -7,7 +7,7 @@ use \DOMElement;
 
 use FireText\Api\Resource;
 
-class Xml implements ParserInterface
+class Xml extends AbstractParser
 {
     protected $document;
 
@@ -28,6 +28,15 @@ class Xml implements ParserInterface
         $status = $this->parseResource(new Resource\Status, $xpath->query('status')->item(0));
         
         return $status;
+    }
+    
+    public function getResponseDataValue()
+    {
+        $xpath = $this->getXPath();
+        
+        $value = $xpath->query('data/@responseData')->item(0)->textContent;
+        
+        return $value;
     }
     
     public function getDataItems(Resource\ResourceInterface $type)

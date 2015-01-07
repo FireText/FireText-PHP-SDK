@@ -7,6 +7,13 @@ class Client
     
     protected $httpClient;
     
+    public function request($type, $namespace = 'FireText\Api\Request\\')
+    {
+        $type = $namespace.$type;
+    
+        return new $type($this->getCredentials());
+    }
+    
     public function __construct(Credentials $credentials = null, HttpClient $httpClient = null)
     {
         if(!is_null($credentials)) {
@@ -36,7 +43,7 @@ class Client
     
     public function getHttpClone()
     {
-        $http = $this->getHttp();
+        $http = $this->getHttpClient();
 
         return clone $http;
     }

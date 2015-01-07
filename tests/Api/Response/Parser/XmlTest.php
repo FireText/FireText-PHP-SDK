@@ -1,9 +1,7 @@
 <?php
 namespace FireText\Api\Response\Parser;
 
-use PHPUnit_Framework_TestCase;
-
-class XmlTest extends PHPUnit_Framework_TestCase
+class XmlTest extends \FireText\AbstractTest
 {
     /**
      * Test getStatus method returns Status resource
@@ -35,18 +33,5 @@ class XmlTest extends PHPUnit_Framework_TestCase
         $document = $xml->getDocument();
         
         $this->assertInstanceOf('DOMDocument', $document);
-    }
-
-    public function provideResponseDocuments()
-    {
-        $result = array();
-        
-        foreach(glob(__DIR__.'/fixtures/*.response.xml') as $document) {
-            $result[] = array(
-                file_get_contents($document),
-            );
-        }
-        
-        return $result;
     }
 }

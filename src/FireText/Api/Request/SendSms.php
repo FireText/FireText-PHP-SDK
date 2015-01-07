@@ -5,6 +5,8 @@ use FireText\Api\Credentials;
 
 class SendSms extends AbstractRequest
 {
+    protected $responseType = 'FireText\Api\Response\Count';
+
     protected $path = 'sendsms';
     
     protected $message;

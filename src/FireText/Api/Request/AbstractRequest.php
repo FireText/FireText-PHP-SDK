@@ -2,12 +2,18 @@
 namespace FireText\Api\Request;
 
 use FireText\Api\Credentials;
+use FireText\Api\Response\ResponseInterface;
+use FireText\Api\Response\Parser\AbstractParser as ResponseParser;
 
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Stdlib\Hydrator\Filter;
 
 abstract class AbstractRequest implements RequestInterface
 {
+    protected $responseType;
+    
+    protected $responseResourceType;
+
     protected $basePath = 'https://www.firetext.co.uk/api';
     
     protected $path;
@@ -40,7 +46,23 @@ abstract class AbstractRequest implements RequestInterface
 
         $this->setHydrator($hydrator);
         
-        $this->setFormat(static::FORMAT_XML);
+        $this->setFormat(ResponseInterface::FORMAT_XML);
+    }
+    
+    public function response($response)
+    {
+        $parserType = ResponseParser::parserForFormat($this->getFormat());
+        $parser = new $parserType($response);
+    
+        $responseType = $this->responseType;
+        if(!is_null($this->responseResourceType)) {
+            $responseResource = new $this->responseResourceType;
+            $responseObject = $responseType::parse($parser, $responseResource);
+        } else {
+            $responseObject = $responseType::parse($parser, null);
+        }
+        
+        return $responseObject;
     }
     
     public function getRequestPath()
@@ -108,6 +130,17 @@ abstract class AbstractRequest implements RequestInterface
     public function setCredentials(Credentials $credentials)
     {
         $this->credentials = $credentials;
+        return $this;
+    }
+    
+    public function getHydrator()
+    {
+        return $this->hydrator;
+    }
+    
+    public function setHydrator($hydrator)
+    {
+        $this->hydrator = $hydrator;
         return $this;
     }
     
