@@ -3,13 +3,13 @@ namespace FireText\Api\Request;
 
 use FireText\Api\Credentials;
 
-class ReceivedMessages extends AbstractRequest
+class SentMessages extends AbstractRequest
 {
     protected $responseType = 'FireText\Api\Response\ResourceList';
     
-    protected $responseResourceType = 'FireText\Api\Resource\ReceivedMessage';
+    protected $responseResourceType = 'FireText\Api\Resource\SentMessage';
 
-    protected $path = 'receivedmessages';
+    protected $path = 'sentmessages';
     
     protected $subaccount;
     

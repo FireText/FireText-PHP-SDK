@@ -3,13 +3,15 @@ namespace FireText\Api\Request;
 
 use FireText\Api\Credentials;
 
-class ReceivedMessages extends AbstractRequest
+class Unsubscribed extends AbstractRequest
 {
     protected $responseType = 'FireText\Api\Response\ResourceList';
     
-    protected $responseResourceType = 'FireText\Api\Resource\ReceivedMessage';
-
-    protected $path = 'receivedmessages';
+    protected $responseResourceType = 'FireText\Api\Resource\UnsubscribedContact';
+    
+    protected $path = 'unsubscribed';
+    
+    protected $group;
     
     protected $subaccount;
     
@@ -20,6 +22,17 @@ class ReceivedMessages extends AbstractRequest
     protected $pp;
     
     protected $page;
+    
+    public function getGroup()
+    {
+        return $this->group;
+    }
+    
+    public function setGroup($group)
+    {
+        $this->group = $group;
+        return $this;
+    }
     
     public function getSubaccount()
     {
