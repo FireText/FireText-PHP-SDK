@@ -1,7 +1,7 @@
 <?php
 namespace FireText\Api\Response;
 
-use FireText\Api\Resource;
+use FireText\Api\Resource as ResourceNS;
 
 class Count extends AbstractResponse
 {
@@ -15,7 +15,7 @@ class Count extends AbstractResponse
         return new self($status, $count);
     }
     
-    public function __construct(Resource\Status $status, $count)
+    public function __construct(ResourceNS\Status $status, $count)
     {
         parent::__construct($status);
         

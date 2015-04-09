@@ -35,6 +35,7 @@ abstract class AbstractRequest implements RequestInterface
         foreach(array(
             'getRequestPath',
             'getRequestParams',
+            'getResponseType',
             'getBasePath',
             'getPath',
             'getFormat',
@@ -87,6 +88,17 @@ abstract class AbstractRequest implements RequestInterface
         return array_filter($params, function($value) {
             return !is_null($value);
         });
+    }
+    
+    public function getResponseType()
+    {
+        return $this->responseType;
+    }
+    
+    public function setResponseType($responseType)
+    {
+        $this->responseType = $responseType;
+        return $this;
     }
     
     public function getBasePath()

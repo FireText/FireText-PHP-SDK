@@ -50,34 +50,34 @@ class Contact extends AbstractResource
     
     public function getCustomfield1()
     {
-        return $this->customfield1;
+        return $this->customField1;
     }
     
-    public function setCustomfield1($customfield1)
+    public function setCustomfield1($customField1)
     {
-        $this->customfield1 = $customfield1;
+        $this->customField1 = $customField1;
         return $this;
     }
     
     public function getCustomfield2()
     {
-        return $this->customfield2;
+        return $this->customField2;
     }
     
-    public function setCustomfield2($customfield2)
+    public function setCustomfield2($customField2)
     {
-        $this->customfield2 = $customfield2;
+        $this->customField2 = $customField2;
         return $this;
     }
     
     public function getCustomfield3()
     {
-        return $this->customfield3;
+        return $this->customField3;
     }
     
-    public function setCustomfield3($customfield3)
+    public function setCustomfield3($customField3)
     {
-        $this->customfield3 = $customfield3;
+        $this->customField3 = $customField3;
         return $this;
     }
 }

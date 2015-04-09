@@ -1,0 +1,993 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "FireText API",
+        "description": "FireText.co.uk API",
+        "termsOfService": "https:\/\/app.firetext.co.uk\/terms\/",
+        "version": "2.3"
+    },
+    "host": "www.firetext.co.uk",
+    "basePath": "\/api",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "text\/plain; charset=utf-8"
+    ],
+    "produces": [
+        "application\/json"
+    ],
+    "externalDocs": {
+        "description": "FireText SMS API Guide",
+        "url": "https:\/\/www.firetext.co.uk\/api-documentation"
+    },
+    "securityDefinitions": {
+        "username": {
+            "type": "apiKey",
+            "name": "username",
+            "in": "query"
+        },
+        "password": {
+            "type": "apiKey",
+            "name": "password",
+            "in": "query"
+        }
+    },
+    "definitions": {
+        "Resource_Base": {
+            "type": "object"
+        },
+        "Response_Base": {
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "$ref": "#\/definitions\/Resource_Status"
+                }
+            }
+        },
+        "Response_Count": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Base"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "count"
+                    ],
+                    "properties": {
+                        "count": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            ]
+        },
+        "Response_Resource": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Base"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "item"
+                    ],
+                    "properties": {
+                        "item": {
+                            "$ref": "#\/definitions\/Resource_Base"
+                        }
+                    }
+                }
+            ]
+        },
+        "Response_ResourceList": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "items"
+                    ],
+                    "properties": {
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_Base"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "Response_Success": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Base"
+                },
+                {
+                    "type": "object"
+                }
+            ]
+        },
+        "Resource_ClickReport": {
+            "type": "object",
+            "properties": {
+                "mobile": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "clicked": {
+                    "type": "string"
+                },
+                "userAgent": {
+                    "type": "string"
+                }
+            }
+        },
+        "Resource_Contact": {
+            "type": "object",
+            "properties": {
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "customfield1": {
+                    "type": "string"
+                },
+                "customfield2": {
+                    "type": "string"
+                },
+                "customfield3": {
+                    "type": "string"
+                }
+            }
+        },
+        "Resource_DeliveryReport": {
+            "type": "object",
+            "properties": {
+                "mobile": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "messageSent": {
+                    "type": "string"
+                },
+                "messageUpdate": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "Resource_ReceivedMessage": {
+            "type": "object",
+            "properties": {
+                "messageId": {
+                    "type": "string"
+                },
+                "sentTo": {
+                    "type": "string"
+                },
+                "keyword": {
+                    "type": "string"
+                },
+                "receivedFrom": {
+                    "type": "string"
+                },
+                "receivedOn": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Resource_SentMessage": {
+            "type": "object",
+            "properties": {
+                "messageId": {
+                    "type": "string"
+                },
+                "sentOn": {
+                    "type": "string"
+                },
+                "sentTo": {
+                    "type": "string"
+                },
+                "groupDescription": {
+                    "type": "string"
+                },
+                "recipientCount": {
+                    "type": "string"
+                },
+                "templateApiId": {
+                    "type": "string"
+                },
+                "templateName": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Resource_Status": {
+            "type": "object",
+            "properties": {
+                "exception": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "Resource_UnsubscribedContact": {
+            "type": "object",
+            "properties": {
+                "addedOn": {
+                    "type": "string"
+                },
+                "unsubscribedOn": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "string"
+                },
+                "customfield1": {
+                    "type": "string"
+                },
+                "customfield2": {
+                    "type": "string"
+                },
+                "customfield3": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "paths": {
+        "\/addgroup\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "from",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "api",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/addsubaccount\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "notes",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "messages",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/addtemplate\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "name",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "message",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "api",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/clickreport\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Resource"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "message",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/contactinfo\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Resource"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "mobile",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/credit\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Count response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Count"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/deliveryreport\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Resource"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "message",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/receivedmessages\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "ResourceList response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_ResourceList"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "from",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "to",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/sendsms\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Count response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Count"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "message",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "from",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "to",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "schedule",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "reference",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "group",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "receipt",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "template",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/sentmessages\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "ResourceList response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_ResourceList"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "from",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "to",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/subscribe\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "mobile",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "firstname",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "lastname",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "custom1",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "custom2",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "custom3",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "group",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "update",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/transfercredit\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "type",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "amount",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/unsubscribe\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "mobile",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "group",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/unsubscribed\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "ResourceList response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_ResourceList"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "group",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "from",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "to",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/uploadcontacts\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "file",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "md5sum",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "group",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "update",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "columns",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "postback",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "isPost",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        }
+    }
+}

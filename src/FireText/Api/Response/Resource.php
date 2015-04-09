@@ -1,9 +1,9 @@
 <?php
 namespace FireText\Api\Response;
 
-use FireText\Api\Resource;
+use FireText\Api\Resource as ResourceNS;
 
-class Resource extends AbstractResource
+class Resource extends AbstractResponse
 {
     protected $item;
 
@@ -16,7 +16,7 @@ class Resource extends AbstractResource
         return new self($status, $item);
     }
     
-    public function __construct(Resource\Status $status, $item)
+    public function __construct(ResourceNS\Status $status, $item)
     {
         parent::__construct($status);
         
