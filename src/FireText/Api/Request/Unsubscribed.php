@@ -23,6 +23,21 @@ class Unsubscribed extends AbstractRequest
     
     protected $page;
     
+    public function getRequestParams()
+    {
+        $params = parent::getRequestParams();
+        
+        if(!empty($params['from']) && ($params['from'] instanceof \DateTimeInterface)) {
+            $params['from'] = static::format_timestamp($params['from'], 'Y-m-d');
+        }
+        
+        if(!empty($params['to']) && ($params['to'] instanceof \DateTimeInterface)) {
+            $params['to'] = static::format_timestamp($params['to'], 'Y-m-d');
+        }
+        
+        return $params;
+    }
+    
     public function getGroup()
     {
         return $this->group;

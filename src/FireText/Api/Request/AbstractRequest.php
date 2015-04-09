@@ -8,8 +8,14 @@ use FireText\Api\Response\Parser\AbstractParser as ResponseParser;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Stdlib\Hydrator\Filter;
 
+use DateTimeInterface,
+    DateTime,
+    DateTimeZone;
+
 abstract class AbstractRequest implements RequestInterface
 {
+    const TIMESTAMP_TIMEZONE = 'Europe/London';
+
     protected $responseType;
     
     protected $responseResourceType;
@@ -25,6 +31,13 @@ abstract class AbstractRequest implements RequestInterface
     protected $hydrator;
     
     protected $isPost = false;
+    
+    protected static function format_timestamp(DateTimeInterface $dateTime, $format)
+    {
+        return (new DateTime($dateTime->format('c')))
+                ->setTimeZone(new DateTimeZone(static::TIMESTAMP_TIMEZONE))
+                ->format($format);
+    }
     
     public function __construct(Credentials $credentials)
     {

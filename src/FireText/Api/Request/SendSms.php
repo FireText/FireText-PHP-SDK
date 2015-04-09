@@ -3,6 +3,9 @@ namespace FireText\Api\Request;
 
 use FireText\Api\Credentials;
 
+use DateTime,
+    DateTimeZone;
+
 class SendSms extends AbstractRequest
 {
     protected $responseType = 'FireText\Api\Response\Count';
@@ -34,6 +37,17 @@ class SendSms extends AbstractRequest
         $this->setMessage($message);
         $this->setFrom($from);
         $this->setTo($to);
+    }
+    
+    public function getRequestParams()
+    {
+        $params = parent::getRequestParams();
+        
+        if(!empty($params['schedule']) && ($params['schedule'] instanceof \DateTimeInterface)) {
+            $params['schedule'] = static::format_timestamp($params['schedule'], 'Y-m-d H:i');
+        }
+        
+        return $params;
     }
     
     public function getMessage()
@@ -75,6 +89,10 @@ class SendSms extends AbstractRequest
     
     public function setSchedule($schedule)
     {
+        if(is_string($schedule)) {
+            $schedule = new DateTime($schedule);
+        }
+    
         $this->schedule = $schedule;
         return $this;
     }
