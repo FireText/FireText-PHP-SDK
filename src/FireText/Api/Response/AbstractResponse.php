@@ -14,6 +14,12 @@ abstract class AbstractResponse implements ResponseInterface
         $this->setStatus($status);
     }
     
+    public function isSuccessful()
+    {
+        return $this->getStatus()
+            ->getCode() === 0;
+    }
+    
     public function getStatus()
     {
         return $this->status;

@@ -1,11 +1,18 @@
 <?php
 namespace FireText\Api\Resource;
 
+use RuntimeException;
+
 class Status extends AbstractResource
 {
     protected $code;
     
     protected $description;
+    
+    public function getException()
+    {
+        return new RuntimeException($this->description, $this->code);
+    }
     
     public function getCode()
     {
