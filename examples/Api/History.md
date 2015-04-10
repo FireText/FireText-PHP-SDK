@@ -1,0 +1,61 @@
+## View sent messages
+```php
+use FireText\Api;
+require 'vendor/autoload.php';
+
+$username = 'johndoe@example.com';
+$password = 'foo';
+
+$client = new Api\Client(new Api\Credentials($username, $password));
+
+$request = $client->request('SentMessages');
+
+$response = $client->execute($request);
+$result = $request->response($response);
+
+if($result->isSuccessful()) {
+    foreach($result->getItems() as $message) {
+        $data = $message->getHydrator()
+            ->extract($message);
+        
+        foreach($data as $field => $value) {
+            echo "{$field}: {$value}".PHP_EOL;
+        }
+        echo PHP_EOL;
+    }
+} else {
+    throw $result->getStatus()
+        ->getException();
+}
+```
+
+## View received messages
+```php
+use FireText\Api;
+require 'vendor/autoload.php';
+
+$username = 'johndoe@example.com';
+$password = 'foo';
+
+$client = new Api\Client(new Api\Credentials($username, $password));
+
+$request = $client->request('ReceivedMessages');
+
+$response = $client->execute($request);
+$result = $request->response($response);
+
+if($result->isSuccessful()) {
+    foreach($result->getItems() as $message) {
+        $data = $message->getHydrator()
+            ->extract($message);
+        
+        foreach($data as $field => $value) {
+            echo "{$field}: {$value}".PHP_EOL;
+        }
+        echo PHP_EOL;
+    }
+} else {
+    throw $result->getStatus()
+        ->getException();
+}
+```

@@ -1,0 +1,22 @@
+## Check Credit
+```php
+use FireText\Api;
+require 'vendor/autoload.php';
+
+$username = 'johndoe@example.com';
+$password = 'foo';
+
+$client = new Api\Client(new Api\Credentials($username, $password));
+
+$request = $client->request('Credit');
+
+$response = $client->execute($request);
+$result = $request->response($response);
+
+if($result->isSuccessful()) {
+    echo "Number of credits remaining: {$result->getCount()}".PHP_EOL;
+} else {
+    throw $result->getStatus()
+        ->getException();
+}
+```

@@ -1,0 +1,57 @@
+## Add a sub-account
+```php
+use FireText\Api;
+require 'vendor/autoload.php';
+
+$username = 'johndoe@example.com';
+$password = 'foo';
+
+$client = new Api\Client(new Api\Credentials($username, $password));
+
+$subaccount = 'mysubaccount';
+$name = 'What should I call this?';
+$notes = 'Why am I doing this?';
+$messages = 5; // Give the sub-account 5 credits
+
+$request = $client->request('AddSubaccount', $subaccount);
+$request->setName($name);
+$request->setNotes($notes);
+$request->setMessages($messages);
+
+$response = $client->execute($request);
+$result = $request->response($response);
+
+if($result->isSuccessful()) {
+    echo "Sub-account added successfully".PHP_EOL;
+} else {
+    throw $result->getStatus()
+        ->getException();
+}
+```
+
+## Transfer credits to sub-account
+```php
+use FireText\Api;
+require 'vendor/autoload.php';
+
+$username = 'johndoe@example.com';
+$password = 'foo';
+
+$client = new Api\Client(new Api\Credentials($username, $password));
+
+$subaccount = 'mysubaccount';
+$type = 'deduct';
+$amount = 5;
+
+$request = $client->request('TransferCredit', $subaccount, $type, $amount);
+
+$response = $client->execute($request);
+$result = $request->response($response);
+
+if($result->isSuccessful()) {
+    echo "Credits transferred successfully".PHP_EOL;
+} else {
+    throw $result->getStatus()
+        ->getException();
+}
+```

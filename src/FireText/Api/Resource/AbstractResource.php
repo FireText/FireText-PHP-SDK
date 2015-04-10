@@ -6,6 +6,8 @@ use Zend\Stdlib\Hydrator\Filter;
 
 abstract class AbstractResource implements ResourceInterface
 {
+    protected $hydrator;
+
     public function __construct()
     {
         $hydrator = new ClassMethods;
