@@ -93,14 +93,18 @@ abstract class AbstractRequest implements RequestInterface
         $hydrator = $this->getHydrator();
         $credentials = $this->getCredentials();
         
-        $params = array_replace(array(
-            'username' => $credentials->getUsername(),
-            'password' => $credentials->getPassword(),
-        ), $hydrator->extract($this));
+        $params = array_replace($credentials->getRequestParams(), $hydrator->extract($this));
         
         return array_filter($params, function($value) {
             return !is_null($value);
         });
+    }
+    
+    public function getHeaders()
+    {
+        $headers = $credentials->getHeaders();
+        
+        return $headers;
     }
     
     public function getResponseType()

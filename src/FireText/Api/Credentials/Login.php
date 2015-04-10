@@ -1,7 +1,7 @@
 <?php
-namespace FireText\Api;
+namespace FireText\Api\Credentials;
 
-class Credentials
+class Login implements CredentialsInterface
 {
     protected $username;
     
@@ -11,6 +11,19 @@ class Credentials
     {
         $this->setUsername($username);
         $this->setPassword($password);
+    }
+    
+    public function getRequestParams()
+    {
+        return array(
+            'username' => $this->getUsername(),
+            'password' => $this->getPassword(),
+        );
+    }
+    
+    public function getHeaders()
+    {
+        return array();
     }
     
     public function getUsername()

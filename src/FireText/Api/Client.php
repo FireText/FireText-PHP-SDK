@@ -37,6 +37,8 @@ class Client
     {
         $httpClient = $this->getHttpClone();
         
+        $httpClient->setHeaders($request->getHeaders());
+        
         if($request->isPost()) {
             $httpClient->setUrl($request->getRequestPath());
             $httpClient->setPostFields($request->getRequestParams());

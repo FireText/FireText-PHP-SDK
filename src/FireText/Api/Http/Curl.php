@@ -14,6 +14,17 @@ class Curl implements Client
     {
         $this->setOption(CURLOPT_POSTFIELDS, $fields);
     }
+    
+    public function setHeaders($headers)
+    {
+        $curlHeaders = array();
+        
+        foreach($headers as $name => $value) {
+            $curlHeaders[] = "{$name}: {$value}";
+        }
+        
+        $this->setOption(CURL_HTTPHEADER, $curlHeaders);
+    }
 
     public function setOption($name, $value)
     {
