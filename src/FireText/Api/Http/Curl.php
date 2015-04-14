@@ -23,7 +23,7 @@ class Curl implements Client
             $curlHeaders[] = "{$name}: {$value}";
         }
         
-        $this->setOption(CURL_HTTPHEADER, $curlHeaders);
+        $this->setOption(CURLOPT_HTTPHEADER, $curlHeaders);
     }
 
     public function setOption($name, $value)

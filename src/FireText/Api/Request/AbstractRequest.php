@@ -39,7 +39,7 @@ abstract class AbstractRequest implements RequestInterface
                 ->format($format);
     }
     
-    public function __construct(Credentials $credentials)
+    public function __construct(Credentials\CredentialsInterface $credentials)
     {
         $this->setCredentials($credentials);
         
@@ -102,7 +102,7 @@ abstract class AbstractRequest implements RequestInterface
     
     public function getHeaders()
     {
-        $headers = $credentials->getHeaders();
+        $headers = $this->getCredentials()->getHeaders();
         
         return $headers;
     }
@@ -156,7 +156,7 @@ abstract class AbstractRequest implements RequestInterface
         return $this->credentials;
     }
     
-    public function setCredentials(Credentials $credentials)
+    public function setCredentials(Credentials\CredentialsInterface $credentials)
     {
         $this->credentials = $credentials;
         return $this;
