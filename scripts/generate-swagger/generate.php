@@ -19,7 +19,7 @@ $swagger = [
     'produces' => ['application/json'],
     'externalDocs' => [
         'description' => 'FireText SMS API Guide',
-        'url' => 'https://www.firetext.co.uk/api-documentation',
+        'url' => 'https://www.firetext.co.uk/docs',
     ],
     'securityDefinitions' => [
         'username' => [
