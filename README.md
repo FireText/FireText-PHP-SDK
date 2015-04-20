@@ -10,6 +10,9 @@ FireText PHP SDK
   * [Groups](/docs/en/04.groups.md)
   * [History](/docs/en/05.history.md)
   * [Sub-accounts](/docs/en/06.sub.accounts.md)
+* Links
+  * [Packagist](https://packagist.org/packages/callfire/firetext-php-sdk)
+  * [Documentation](https://www.firetext.co.uk/docs)
 
 ## Installation
 
