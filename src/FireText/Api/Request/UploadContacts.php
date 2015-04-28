@@ -1,7 +1,7 @@
 <?php
 namespace FireText\Api\Request;
 
-use FireText\Api\Credentials;
+use FireText\Api\Credentials\CredentialsInterface as Credentials;
 
 class UploadContacts extends AbstractRequest
 {
