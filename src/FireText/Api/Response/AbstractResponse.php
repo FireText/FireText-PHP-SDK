@@ -11,9 +11,7 @@ abstract class AbstractResponse implements ResponseInterface
     protected $hydrator;
 
     protected $status;
-    
-    abstract public static function parse(Parser\ParserInterface $parser, $responseResource);
-    
+
     public function __construct(ResourceNS\Status $status)
     {
         $this->setStatus($status);
