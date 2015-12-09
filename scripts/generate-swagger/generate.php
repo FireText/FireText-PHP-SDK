@@ -9,7 +9,7 @@ $swagger = [
     'info' => [
         'title' => 'FireText API',
         'description' => 'FireText.co.uk API',
-        'termsOfService' => 'https://app.firetext.co.uk/terms/',
+        'termsOfService' => 'https://www.firetext.co.uk/terms',
         'version' => '2.3',
     ],
     'host' => 'www.firetext.co.uk',
@@ -124,7 +124,7 @@ foreach(glob("{$sourcePath}/Request/*.php") as $requestFile) {
         $requiredParams[] = $requiredParam->getName();
     }
     
-    $request = $requestReflection->newInstanceArgs(array_merge(array(new Api\Credentials(null, null)), array_fill(0, count($requiredParams), '')));
+    $request = $requestReflection->newInstanceArgs(array_merge(array(new Api\Credentials\Login(null, null)), array_fill(0, count($requiredParams), '')));
     $responseType = end(explode('\\', $request->getResponseType()));
     
     $pathKey = "/{$request->getPath()}/json"; // TODO: Try to eliminate the hardcoded format suffixing

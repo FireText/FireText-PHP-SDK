@@ -1,5 +1,5 @@
 {
-    "name": "callfire/firetext-php-sdk",
+    "name": "firetext/php-sdk",
     "description": "A PHP SDK for the FireText.co.uk API",
     "require": {
         "zendframework/zend-stdlib": "~2.2.2"
@@ -12,8 +12,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Justin Martin",
-            "email": "jmartin@callfire.com"
+            "name": "FireText",
+            "email": "hello@firetext.co.uk"
         }
     ],
     "autoload": {
