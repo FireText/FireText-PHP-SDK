@@ -5,7 +5,7 @@ use FireText\Api\Credentials\CredentialsInterface as Credentials;
 
 class ClickReport extends AbstractRequest
 {
-    protected $responseType = 'FireText\Api\Response\Resource';
+    protected $responseType = 'FireText\Api\Response\ResourceList';
     
     protected $responseResourceType = 'FireText\Api\Resource\ClickReport';
 
