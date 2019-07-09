@@ -20,7 +20,7 @@ class Client
         return (new ReflectionClass($type))->newInstanceArgs(array_merge(array($this->getCredentials()), $requestParams));
     }
     
-    public function __construct(Credentials\CredentialsInterface $credentials = null, HttpClient $httpClient = null)
+    public function __construct(Credentials\CredentialsInterface $credentials = null, Http\Client $httpClient = null)
     {
         if(!is_null($credentials)) {
             $this->setCredentials($credentials);
