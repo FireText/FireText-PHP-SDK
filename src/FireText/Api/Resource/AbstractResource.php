@@ -1,8 +1,8 @@
 <?php
 namespace FireText\Api\Resource;
 
-use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\Stdlib\Hydrator\Filter;
+use Laminas\Hydrator\ClassMethodsHydrator;
+use Laminas\Hydrator\Filter;
 
 abstract class AbstractResource implements ResourceInterface
 {
@@ -10,7 +10,7 @@ abstract class AbstractResource implements ResourceInterface
 
     public function __construct()
     {
-        $hydrator = new ClassMethods;
+        $hydrator = new ClassMethodsHydrator;
         $hydrator->setUnderscoreSeparatedKeys(false);
         foreach(array(
             'getHydrator',

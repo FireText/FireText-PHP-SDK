@@ -3,8 +3,8 @@ namespace FireText\Api\Response;
 
 use FireText\Api\Resource as ResourceNS;
 
-use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\Stdlib\Hydrator\Filter;
+use Laminas\Hydrator\ClassMethodsHydrator;
+use Laminas\Hydrator\Filter;
 
 abstract class AbstractResponse implements ResponseInterface
 {
@@ -16,7 +16,7 @@ abstract class AbstractResponse implements ResponseInterface
     {
         $this->setStatus($status);
         
-        $hydrator = new ClassMethods;
+        $hydrator = new ClassMethodsHydrator;
         $hydrator->setUnderscoreSeparatedKeys(false);
         foreach(array(
             'getHydrator',

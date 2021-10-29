@@ -5,8 +5,8 @@ use FireText\Api\Credentials;
 use FireText\Api\Response\ResponseInterface;
 use FireText\Api\Response\Parser\AbstractParser as ResponseParser;
 
-use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\Stdlib\Hydrator\Filter;
+use Laminas\Hydrator\ClassMethodsHydrator;
+use Laminas\Hydrator\Filter;
 
 use DateTimeInterface,
     DateTime,
@@ -43,7 +43,7 @@ abstract class AbstractRequest implements RequestInterface
     {
         $this->setCredentials($credentials);
         
-        $hydrator = new ClassMethods;
+        $hydrator = new ClassMethodsHydrator;
         $hydrator->setUnderscoreSeparatedKeys(false);
         foreach(array(
             'getRequestPath',

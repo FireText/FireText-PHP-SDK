@@ -2,7 +2,7 @@
     "name": "firetext/php-sdk",
     "description": "A PHP SDK for the FireText.co.uk API",
     "require": {
-        "zendframework/zend-stdlib": "~2.1"
+        "laminas/laminas-hydrator": "^4.3"
     },
     "require-dev": {
         "fabpot/php-cs-fixer": "v0.2.0",
