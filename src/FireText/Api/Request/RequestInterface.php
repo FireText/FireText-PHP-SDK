@@ -7,5 +7,5 @@ interface RequestInterface
     
     public function getRequestParams();
     
-    public function isPost();
+    public function getIsPost();
 }

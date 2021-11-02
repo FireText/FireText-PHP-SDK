@@ -39,7 +39,7 @@ class Client
         
         $httpClient->setHeaders($request->getHeaders());
         
-        if($request->isPost()) {
+        if($request->getIsPost()) {
             $httpClient->setUrl($request->getRequestPath());
             $httpClient->setPostFields($request->getRequestParams());
         } else {

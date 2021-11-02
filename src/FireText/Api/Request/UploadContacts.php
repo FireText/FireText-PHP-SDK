@@ -29,6 +29,7 @@ class UploadContacts extends AbstractRequest
         
         $this->setFile($file);
         $this->setGroup($group);
+        $this->setIsPost(true);
     }
     
     public function getSubaccount()
