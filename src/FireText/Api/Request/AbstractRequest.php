@@ -173,7 +173,7 @@ abstract class AbstractRequest implements RequestInterface
         return $this;
     }
     
-    public function getIsPost()
+    public function isPost()
     {
         return $this->isPost;
     }
