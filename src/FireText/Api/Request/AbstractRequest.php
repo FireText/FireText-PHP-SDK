@@ -59,8 +59,8 @@ abstract class AbstractRequest implements RequestInterface
         }
 
         $this->setHydrator($hydrator);
-        
-        $this->setFormat(ResponseInterface::FORMAT_XML);
+
+        $this->setFormat(extension_loaded('json') ? 'json' : (extension_loaded('xml') ? 'xml' : ''));
     }
     
     public function response($response)
@@ -147,7 +147,7 @@ abstract class AbstractRequest implements RequestInterface
     
     public function setFormat($format)
     {
-        $this->format = $format;
+        $this->format = strtolower($format)=='json' ? ResponseInterface::FORMAT_JSON : (strtolower($format)=='xml' ? ResponseInterface::FORMAT_XML : ResponseInterface::FORMAT_PROPRIETARY);
         return $this;
     }
     
