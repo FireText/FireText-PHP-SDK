@@ -5,61 +5,59 @@ use FireText\Api\Resource;
 
 class Json extends AbstractParser
 {
-    protected $jsonObject;
+    protected $document;
 
     public function __construct($response = null)
     {
         if(!is_null($response)) {
-            $this->setJsonObject($response);
+            $this->setDocument(json_decode($response));
         }
     }
 
     public function getStatus()
     {
-        return $this->parseResource(new Resource\Status, $this->getJsonObject());
+        return $this->parseResource(new Resource\Status, $this->getDocument());
     }
 
     public function getResponseDataValue()
     {
-        $jsonObject = $this->getJsonObject();
-        return $jsonObject->responseData;
+        return $this->getDocument()->responseData;
     }
 
     public function getDataItems(Resource\ResourceInterface $type)
     {
         $data = array();
 
-        $jsonObject = $this->getJsonObject();
-        $itemNodes = $jsonObject->data;
+        $itemNodes = $this->getDocument();
 
-        foreach($itemNodes as $itemNode) {
+        foreach($itemNodes->data as $itemNode) {
             $data[] = $this->parseResource(clone $type, $itemNode);
         }
 
         return $data;
     }
 
-    public function parseResource(Resource\ResourceInterface $type, $jsonObject)
+    public function parseResource(Resource\ResourceInterface $type, $data)
     {
         $hydrator = $type->getHydrator();
 
         $resourceData = array();
 
-        foreach($jsonObject as $field => $value) {
+        foreach($data as $field => $value) {
             $resourceData[$field] = $value;
         }
 
         return $hydrator->hydrate($resourceData, $type);
     }
 
-    public function getJsonObject()
+    public function getDocument()
     {
-        return $this->jsonObject;
+        return $this->document;
     }
 
-    public function setJsonObject($json)
+    public function setDocument($response)
     {
-        $this->jsonObject = json_decode($json);
+        $this->document = $response;
         return $this;
     }
 }

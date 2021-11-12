@@ -5,76 +5,64 @@ use FireText\Api\Resource;
 
 class Proprietary extends AbstractParser
 {
-    protected $plaintext;
+    protected $document;
 
     public function __construct($response = null)
     {
         if(!is_null($response)) {
-            $this->setPlaintext($response);
+            $result = array();
+            $result['data'] = explode("\n", $response);
+            $result['code'] = substr($result['data'][0], 0, strpos($result['data'][0], ':'));
+            $data = substr(strstr($result['data'][0], ':'), 1);
+            $result['responseData'] = $data[0] == ' ' ? false : substr($data, 0, strpos($data, ' '));
+            $result['description'] = array_shift($result['data']);
+            $result['status'] = substr(strstr($data, ' '), 1);
+
+            $this->setDocument($result);
         }
     }
 
     public function getStatus()
     {
-        return $this->parseResource(new Resource\Status, $this->getPlaintext());
+        return $this->parseResource(new Resource\Status, $this->getDocument());
     }
 
     public function getResponseDataValue()
     {
-        $response = $this->getPlaintext();
-        $split = explode(' ', $response[0], 2);
-        return substr($split[0], strlen(substr($split[0], 0, strpos($split[0],':')))+1);
+        $document = $this->getDocument();
+        return $document['responseData'];
     }
 
     public function getDataItems(Resource\ResourceInterface $type)
     {
         $data = array();
 
-        $response = $this->getPlaintext();
-        array_shift($response);
+        $itemNodes = $this->getDocument();
 
-        foreach($response as $row) {
-            $data[] = $this->parseResource(clone $type, $row);
+        foreach ($itemNodes['data'] as $itemNode) {
+            $data[] = $this->parseResource(clone $type, $itemNode);
         }
 
         return $data;
     }
 
-    public function parseResource(Resource\ResourceInterface $type, $response)
+    public function parseResource(Resource\ResourceInterface $type, $data)
     {
         $hydrator = $type->getHydrator();
-
-        $resourceData = array();
-
-        if (preg_match("/Status$/", get_class($type))) {
-            $split = explode(' ', $response[0], 2);
-            $resourceData = array(
-                'code' => intval(substr($split[0], 0, strpos($split[0],':'))),
-                'description' => $split[1]
-            );
-        } else {
-            if (preg_match("/&[a-zA-Z]+=/", $response)) {
-                foreach (explode('&', $response) as $value) {
-                    list($f, $v) = explode('=', $value, 2);
-                    $resourceData[$f] = urldecode($v);
-                }
-            } else {
-                $resourceData = $response;
-            }
+        if (is_string($data)) {
+            parse_str($data,$data);
         }
-
-        return $hydrator->hydrate($resourceData, $type);
+        return $hydrator->hydrate($data, $type);
     }
 
-    public function getPlaintext()
+    public function getDocument()
     {
-        return $this->plaintext;
+        return $this->document;
     }
 
-    public function setPlaintext($response)
+    public function setDocument($response)
     {
-        $response = explode("\n", $response);
-        $this->plaintext = $response;
+        $this->document = $response;
         return $this;
     }
 }
