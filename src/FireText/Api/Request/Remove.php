@@ -3,17 +3,19 @@ namespace FireText\Api\Request;
 
 use FireText\Api\Credentials\CredentialsInterface as Credentials;
 
-class Unsubscribe extends AbstractRequest
+class Remove extends AbstractRequest
 {
     protected $responseType = 'FireText\Api\Response\Success';
 
-    protected $path = 'unsubscribe';
+    protected $path = 'remove';
     
     protected $mobile;
     
     protected $group;
 
     protected $subaccount;
+
+    protected $truncate;
 
     public function __construct(Credentials $credentials, $mobile)
     {
@@ -52,6 +54,17 @@ class Unsubscribe extends AbstractRequest
     public function setGroup($group)
     {
         $this->group = $group;
+        return $this;
+    }
+
+    public function getTruncate()
+    {
+        return $this->truncate;
+    }
+
+    public function setTruncate($truncate)
+    {
+        $this->truncate = $truncate;
         return $this;
     }
 }

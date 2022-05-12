@@ -12,14 +12,27 @@ class ContactInfo extends AbstractRequest
     protected $path = 'contactinfo';
     
     protected $mobile;
-    
+
+    protected $subaccount;
+
     public function __construct(Credentials $credentials, $mobile)
     {
         parent::__construct($credentials);
         
         $this->setMobile($mobile);
     }
-    
+
+    public function getSubaccount()
+    {
+        return $this->subaccount;
+    }
+
+    public function setSubaccount($subaccount)
+    {
+        $this->subaccount = $subaccount;
+        return $this;
+    }
+
     public function getMobile()
     {
         return $this->mobile;

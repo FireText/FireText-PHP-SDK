@@ -16,6 +16,12 @@ class AddSubaccount extends AbstractRequest
     protected $notes;
     
     protected $messages;
+
+    protected $email;
+
+    protected $passphrase;
+
+    protected $key;
     
     public function __construct(Credentials $credentials, $subaccount)
     {
@@ -65,6 +71,39 @@ class AddSubaccount extends AbstractRequest
     public function setMessages($messages)
     {
         $this->messages = $messages;
+        return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function getPassphrase()
+    {
+        return $this->passphrase;
+    }
+
+    public function setPassphrase($passphrase)
+    {
+        $this->passphrase = $passphrase;
+        return $this;
+    }
+
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    public function setKey($key)
+    {
+        $this->key = $key;
         return $this;
     }
 }

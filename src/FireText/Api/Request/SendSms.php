@@ -29,6 +29,12 @@ class SendSms extends AbstractRequest
     protected $subaccount;
     
     protected $template;
+
+    protected $unicode;
+
+    protected $interval;
+
+    protected $expires;
     
     public function __construct(Credentials $credentials, $message, $from, $to)
     {
@@ -149,6 +155,39 @@ class SendSms extends AbstractRequest
     public function setTemplate($template)
     {
         $this->template = $template;
+        return $this;
+    }
+
+    public function getUnicode()
+    {
+        return $this->unicode;
+    }
+
+    public function setUnicode($unicode)
+    {
+        $this->unicode = $unicode;
+        return $this;
+    }
+
+    public function getInterval()
+    {
+        return $this->interval;
+    }
+
+    public function setInterval($interval)
+    {
+        $this->interval = $interval;
+        return $this;
+    }
+
+    public function getExpires()
+    {
+        return $this->expires;
+    }
+
+    public function setExpires($expires)
+    {
+        $this->expires = $expires;
         return $this;
     }
 }

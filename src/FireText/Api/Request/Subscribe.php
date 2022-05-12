@@ -24,6 +24,8 @@ class Subscribe extends AbstractRequest
     protected $group;
     
     protected $update;
+
+    protected $subaccount;
     
     public function __construct(Credentials $credentials, $mobile)
     {
@@ -31,7 +33,18 @@ class Subscribe extends AbstractRequest
         
         $this->setMobile($mobile);
     }
-    
+
+    public function getSubaccount()
+    {
+        return $this->subaccount;
+    }
+
+    public function setSubaccount($subaccount)
+    {
+        $this->subaccount = $subaccount;
+        return $this;
+    }
+
     public function getMobile()
     {
         return $this->mobile;

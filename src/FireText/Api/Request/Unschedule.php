@@ -3,23 +3,23 @@ namespace FireText\Api\Request;
 
 use FireText\Api\Credentials\CredentialsInterface as Credentials;
 
-class Unsubscribe extends AbstractRequest
+class Unschedule extends AbstractRequest
 {
     protected $responseType = 'FireText\Api\Response\Success';
 
-    protected $path = 'unsubscribe';
+    protected $path = 'unschedule';
     
-    protected $mobile;
+    protected $message;
     
-    protected $group;
+    protected $reference;
 
     protected $subaccount;
 
-    public function __construct(Credentials $credentials, $mobile)
+    public function __construct(Credentials $credentials, $message)
     {
         parent::__construct($credentials);
-        
-        $this->setMobile($mobile);
+
+        $this->setMessage($message);
     }
 
     public function getSubaccount()
@@ -33,25 +33,25 @@ class Unsubscribe extends AbstractRequest
         return $this;
     }
 
-    public function getMobile()
+    public function getMessage()
     {
-        return $this->mobile;
+        return $this->message;
     }
     
-    public function setMobile($mobile)
+    public function setMessage($message)
     {
-        $this->mobile = $mobile;
+        $this->message = $message;
         return $this;
     }
     
-    public function getGroup()
+    public function getReference()
     {
-        return $this->group;
+        return $this->reference;
     }
     
-    public function setGroup($group)
+    public function setReference($reference)
     {
-        $this->group = $group;
+        $this->reference = $reference;
         return $this;
     }
 }
