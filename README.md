@@ -10,6 +10,7 @@ FireText PHP SDK
   * [Groups](/docs/en/04.groups.md)
   * [History](/docs/en/05.history.md)
   * [Sub-accounts](/docs/en/06.sub.accounts.md)
+  * [Keywords](/docs/en/07.keywords.md)
 * Links
   * [Packagist](https://packagist.org/packages/firetext/php-sdk)
   * [Documentation](https://www.firetext.co.uk/docs)
