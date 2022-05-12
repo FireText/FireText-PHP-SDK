@@ -32,6 +32,14 @@ class Client
             $this->setHttpClient(new Http\Curl);
         }
     }
+
+    public function response(Request\RequestInterface $request)
+    {
+        $response = $this->execute($request);
+        $result = $request->response($response->getBody());
+        $result->setHeaders($response->getHeaders());
+        return $result;
+    }
     
     public function execute(Request\RequestInterface $request)
     {
@@ -45,6 +53,8 @@ class Client
         } else {
             $httpClient->setUrl($request->getRequestPath().'?'.http_build_query($request->getRequestParams()));
         }
+
+        $httpClient->parseResponseHeaders();
         
         return $httpClient->execute();
     }

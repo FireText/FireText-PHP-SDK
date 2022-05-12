@@ -4,7 +4,9 @@ namespace FireText\Api\Http;
 class Curl implements Client
 {
     protected $curl;
-    
+
+    protected $headers = array();
+
     public function setUrl($url)
     {
         $this->setOption(CURLOPT_URL, $url);
@@ -36,9 +38,21 @@ class Curl implements Client
         curl_setopt_array($this->getCurl(), $options);
     }
 
+    public function parseResponseHeaders()
+    {
+        $this->setOption(CURLOPT_HEADERFUNCTION, function ($curl, $header) {
+            if (strpos($header, ":") === false) {
+                return strlen($header);
+            }
+            list($key, $value) = explode(":", trim($header), 2);
+            $this->headers[trim($key)] = trim($value);
+            return strlen($header);
+        });
+    }
+
     public function execute()
     {
-        return curl_exec($this->getCurl());
+        return new Response(curl_exec($this->getCurl()), $this->headers, $this->getInfo(CURLINFO_HTTP_CODE));
     }
 
     public function getInfo($name)

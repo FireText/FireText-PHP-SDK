@@ -12,6 +12,8 @@ abstract class AbstractResponse implements ResponseInterface
 
     protected $status;
 
+    protected $headers;
+
     public function __construct(ResourceNS\Status $status)
     {
         $this->setStatus($status);
@@ -32,6 +34,17 @@ abstract class AbstractResponse implements ResponseInterface
     {
         return $this->getStatus()
             ->getCode() === 0;
+    }
+
+    public function getHeader($header)
+    {
+        $header = strtolower($header);
+        return isset($this->headers[$header]) ? $this->headers[$header] : null;
+    }
+
+    public function setHeaders($headers)
+    {
+        $this->headers = $headers;
     }
     
     public function getStatus()

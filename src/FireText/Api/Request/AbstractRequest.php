@@ -66,7 +66,7 @@ abstract class AbstractRequest implements RequestInterface
     public function response($response)
     {
         $parserType = ResponseParser::parserForFormat($this->getFormat());
-        $parser = new $parserType($response);
+        $parser = new $parserType((string) $response);
     
         $responseType = $this->responseType;
         if(!is_null($this->responseResourceType)) {
@@ -106,7 +106,7 @@ abstract class AbstractRequest implements RequestInterface
         
         return $headers;
     }
-    
+
     public function getResponseType()
     {
         return $this->responseType;
