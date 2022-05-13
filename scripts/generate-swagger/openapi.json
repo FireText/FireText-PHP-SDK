@@ -1,0 +1,1665 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FireText API",
+    "description": "FireText.co.uk API",
+    "termsOfService": "https://www.firetext.co.uk/terms",
+    "version": "2"
+  },
+  "externalDocs": {
+    "description": "FireText SMS API Guide",
+    "url": "https://www.firetext.co.uk/docs"
+  },
+  "security": [
+    {
+      "apiKey": []
+    },
+    {
+      "username": [],
+      "password": []
+    }
+  ],
+  "paths": {
+    "/addgroup/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "name",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "description",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "api",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/addsubaccount/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "name",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "notes",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "messages",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "email",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "passphrase",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "key",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/addtemplate/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "name",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "message",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "api",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/clickreport/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ClickReport response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_ClickReport"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "message",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/contactinfo/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Contact response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_Contact"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "mobile",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/credit/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Count response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Count"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/deliveryreport/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "DeliveryReport response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_DeliveryReport"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "message",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "reference",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/forward/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "keyword",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "destination",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "type",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "remove",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/keywords/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Keyword response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_Keyword"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/receivedmessages/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ReceivedMessage response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_ReceivedMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/remove/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "mobile",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "group",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "truncate",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/scheduledmessages/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ScheduledMessage response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_ScheduledMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/sendsms/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Count response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Count"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "message",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "schedule",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "reference",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "group",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "receipt",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "template",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "unicode",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "interval",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "expires",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/sentmessages/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "SentMessage response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_SentMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/subaccounts/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Subaccount response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_Subaccount"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/subscribe/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "mobile",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "firstname",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "lastname",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "custom1",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "custom2",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "custom3",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "group",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "update",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/transfercredit/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "type",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "amount",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/unschedule/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "message",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "reference",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/unsubscribe/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "mobile",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "group",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/unsubscribed/json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "UnsubscribedContact response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ResourceList_UnsubscribedContact"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "group",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "subaccount",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "from",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "to",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pp",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/uploadcontacts/json": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_Success"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.firetext.co.uk/api"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "apiKey",
+        "in": "query"
+      },
+      "username": {
+        "type": "apiKey",
+        "name": "username",
+        "in": "query"
+      },
+      "password": {
+        "type": "apiKey",
+        "name": "password",
+        "in": "query"
+      }
+    },
+    "schemas": {
+      "Resource_Base": {
+        "type": "object"
+      },
+      "Response_Base": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Resource_Status"
+          }
+        ]
+      },
+      "Response_Count": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Base"
+          },
+          {
+            "type": "object",
+            "required": [
+              "responseData"
+            ],
+            "properties": {
+              "responseData": {
+                "type": "integer"
+              }
+            }
+          }
+        ]
+      },
+      "Response_Resource": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Base"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Resource_Base"
+              }
+            }
+          }
+        ]
+      },
+      "Response_ResourceList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_Base"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Response_Success": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Base"
+          },
+          {
+            "type": "object"
+          }
+        ]
+      },
+      "Resource_ClickReport": {
+        "type": "object",
+        "properties": {
+          "mobile": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "clicked": {
+            "type": "string"
+          },
+          "userAgent": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_ClickReport": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_ClickReport"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_Contact": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "customfield1": {
+            "type": "string"
+          },
+          "customfield2": {
+            "type": "string"
+          },
+          "customfield3": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_Contact": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_Contact"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_DeliveryReport": {
+        "type": "object",
+        "properties": {
+          "mobile": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "messageSent": {
+            "type": "string"
+          },
+          "messageUpdate": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_DeliveryReport": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_DeliveryReport"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_Keyword": {
+        "type": "object",
+        "properties": {
+          "keywordId": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "keyword": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_Keyword": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_Keyword"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_ReceivedMessage": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "sentTo": {
+            "type": "string"
+          },
+          "keyword": {
+            "type": "string"
+          },
+          "receivedFrom": {
+            "type": "string"
+          },
+          "receivedOn": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_ReceivedMessage": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_ReceivedMessage"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_ScheduledMessage": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "queuedOn": {
+            "type": "string"
+          },
+          "sendTo": {
+            "type": "string"
+          },
+          "scheduledFor": {
+            "type": "string"
+          },
+          "recipientCount": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_ScheduledMessage": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_ScheduledMessage"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_SentMessage": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "sentOn": {
+            "type": "string"
+          },
+          "sentTo": {
+            "type": "string"
+          },
+          "groupDescription": {
+            "type": "string"
+          },
+          "recipientCount": {
+            "type": "string"
+          },
+          "templateApiId": {
+            "type": "string"
+          },
+          "templateName": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_SentMessage": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_SentMessage"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_Status": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_Status": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_Status"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_Subaccount": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string"
+          },
+          "accountNotes": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_Subaccount": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_Subaccount"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Resource_UnsubscribedContact": {
+        "type": "object",
+        "properties": {
+          "addedOn": {
+            "type": "string"
+          },
+          "unsubscribedOn": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "customfield1": {
+            "type": "string"
+          },
+          "customfield2": {
+            "type": "string"
+          },
+          "customfield3": {
+            "type": "string"
+          }
+        }
+      },
+      "Response_ResourceList_UnsubscribedContact": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Response_Count"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Resource_UnsubscribedContact"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

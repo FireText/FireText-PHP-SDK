@@ -10,18 +10,23 @@ $swagger = [
         'title' => 'FireText API',
         'description' => 'FireText.co.uk API',
         'termsOfService' => 'https://www.firetext.co.uk/terms',
-        'version' => '2.3',
+        'version' => '2',
     ],
     'host' => 'www.firetext.co.uk',
     'basePath' => '/api',
     'schemes' => ['https'],
-    'consumes' => ['text/plain; charset=utf-8'],
+    'consumes' => ['application/x-www-form-urlencoded'],
     'produces' => ['application/json'],
     'externalDocs' => [
         'description' => 'FireText SMS API Guide',
         'url' => 'https://www.firetext.co.uk/docs',
     ],
     'securityDefinitions' => [
+        'apiKey' => [
+            'type' => 'apiKey',
+            'name' => 'apiKey',
+            'in' => 'query',
+        ],
         'username' => [
             'type' => 'apiKey',
             'name' => 'username',
@@ -30,20 +35,20 @@ $swagger = [
         'password' => [
             'type' => 'apiKey',
             'name' => 'password',
-            'in' => 'query',
-        ],
+             'in' => 'query',
+         ],
+    ],
+    'security' => [
+        ['apiKey' => []],
+        ['username' => [], 'password' => []],
     ],
     'definitions' => [
         'Resource_Base' => [
             'type' => 'object',
         ],
         'Response_Base' => [
-            'type' => 'object',
-            'required' => [
-                'status',
-            ],
-            'properties' => [
-                'status' => [ '$ref' => '#/definitions/Resource_Status', ],
+            'allOf' => [
+                ['$ref' => '#/definitions/Resource_Status' ],
             ],
         ],
         'Response_Count' => [
@@ -52,10 +57,10 @@ $swagger = [
                 [
                     'type' => 'object',
                     'required' => [
-                        'count',
+                        'responseData',
                     ],
                     'properties' => [
-                        'count' => [
+                        'responseData' => [
                             'type' => 'integer',
                         ],
                     ],
@@ -68,10 +73,10 @@ $swagger = [
                 [
                     'type' => 'object',
                     'required' => [
-                        'item',
+                        'data',
                     ],
                     'properties' => [
-                        'item' => [
+                        'data' => [
                             '$ref' => '#/definitions/Resource_Base',
                         ],
                     ],
@@ -84,10 +89,10 @@ $swagger = [
                 [
                     'type' => 'object',
                     'required' => [
-                        'items',
+                        'data',
                     ],
                     'properties' => [
-                        'items' => [
+                        'data' => [
                             'type' => 'array',
                             'items' => [
                                 '$ref' => '#/definitions/Resource_Base',
@@ -125,7 +130,10 @@ foreach(glob("{$sourcePath}/Request/*.php") as $requestFile) {
     }
     
     $request = $requestReflection->newInstanceArgs(array_merge(array(new Api\Credentials\Login(null, null)), array_fill(0, count($requiredParams), '')));
-    $responseType = end(explode('\\', $request->getResponseType()));
+    $responseType = basename(str_replace('\\', '/', $request->getResponseType()));
+    $prop = $requestReflection->getProperty('responseResourceType');
+    $prop->setAccessible(true);
+    $resourceType = basename(str_replace('\\', '/', $prop->getValue($request)));
     
     $pathKey = "/{$request->getPath()}/json"; // TODO: Try to eliminate the hardcoded format suffixing
     $pathMethod = $request->isPost()?'post':'get';
@@ -133,9 +141,9 @@ foreach(glob("{$sourcePath}/Request/*.php") as $requestFile) {
         $pathMethod => [
             'responses' => [
                 '200' => [
-                    'description' => "{$responseType} response",
+                    'description' => (!empty($resourceType) ? $resourceType : $responseType)." response",
                     'schema' => [
-                        '$ref' => "#/definitions/Response_{$responseType}",
+                        '$ref' => "#/definitions/Response_".(!empty($resourceType) ? "ResourceList_{$resourceType}" : $responseType),
                     ],
                 ],
             ],
@@ -144,6 +152,10 @@ foreach(glob("{$sourcePath}/Request/*.php") as $requestFile) {
     ];
     
     foreach($request->getHydrator()->extract($request) as $name => $value) {
+        if(in_array($name, ["isPost", "headers"])) {
+            continue;
+        }
+
         $paramSpec = [
             'name' => $name,
             'in' => $request->isPost()?'formData':'query',
@@ -176,6 +188,10 @@ foreach(glob("{$sourcePath}/Resource/*.php") as $resourceFile) {
     ];
     
     foreach($resource->getHydrator()->extract($resource) as $name => $value) {
+        if(in_array($name, ["exception"])) {
+            continue;
+        }
+    
         $propSpec = [
             'type' => 'string',
         ];
@@ -184,6 +200,12 @@ foreach(glob("{$sourcePath}/Resource/*.php") as $resourceFile) {
     }
     
     $swagger['definitions'][$resourceKey] = $resourceSpec;
+
+    $resourceList = $swagger['definitions']['Response_ResourceList'];
+    $resourceList['allOf'][1]['properties']['data']['items'] = [
+        '$ref' => '#/definitions/'.$resourceKey,
+    ];
+    $swagger['definitions'][str_replace('Resource', 'Response_ResourceList', $resourceKey)] = $resourceList;
 }
 
 file_put_contents(empty($argv[1])?__DIR__.'/swagger.json':$argv[1], json_encode($swagger, JSON_PRETTY_PRINT));

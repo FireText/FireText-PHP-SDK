@@ -4,7 +4,7 @@
         "title": "FireText API",
         "description": "FireText.co.uk API",
         "termsOfService": "https:\/\/www.firetext.co.uk\/terms",
-        "version": "2.3"
+        "version": "2"
     },
     "host": "www.firetext.co.uk",
     "basePath": "\/api",
@@ -12,7 +12,7 @@
         "https"
     ],
     "consumes": [
-        "text\/plain; charset=utf-8"
+        "application\/x-www-form-urlencoded"
     ],
     "produces": [
         "application\/json"
@@ -22,6 +22,11 @@
         "url": "https:\/\/www.firetext.co.uk\/docs"
     },
     "securityDefinitions": {
+        "apiKey": {
+            "type": "apiKey",
+            "name": "apiKey",
+            "in": "query"
+        },
         "username": {
             "type": "apiKey",
             "name": "username",
@@ -33,20 +38,25 @@
             "in": "query"
         }
     },
+    "security": [
+        {
+            "apiKey": []
+        },
+        {
+            "username": [],
+            "password": []
+        }
+    ],
     "definitions": {
         "Resource_Base": {
             "type": "object"
         },
         "Response_Base": {
-            "type": "object",
-            "required": [
-                "status"
-            ],
-            "properties": {
-                "status": {
+            "allOf": [
+                {
                     "$ref": "#\/definitions\/Resource_Status"
                 }
-            }
+            ]
         },
         "Response_Count": {
             "allOf": [
@@ -56,10 +66,10 @@
                 {
                     "type": "object",
                     "required": [
-                        "count"
+                        "responseData"
                     ],
                     "properties": {
-                        "count": {
+                        "responseData": {
                             "type": "integer"
                         }
                     }
@@ -74,10 +84,10 @@
                 {
                     "type": "object",
                     "required": [
-                        "item"
+                        "data"
                     ],
                     "properties": {
-                        "item": {
+                        "data": {
                             "$ref": "#\/definitions\/Resource_Base"
                         }
                     }
@@ -92,10 +102,10 @@
                 {
                     "type": "object",
                     "required": [
-                        "items"
+                        "data"
                     ],
                     "properties": {
-                        "items": {
+                        "data": {
                             "type": "array",
                             "items": {
                                 "$ref": "#\/definitions\/Resource_Base"
@@ -135,6 +145,27 @@
                 }
             }
         },
+        "Response_ResourceList_ClickReport": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_ClickReport"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "Resource_Contact": {
             "type": "object",
             "properties": {
@@ -157,6 +188,27 @@
                     "type": "string"
                 }
             }
+        },
+        "Response_ResourceList_Contact": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_Contact"
+                            }
+                        }
+                    }
+                }
+            ]
         },
         "Resource_DeliveryReport": {
             "type": "object",
@@ -181,6 +233,65 @@
                 }
             }
         },
+        "Response_ResourceList_DeliveryReport": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_DeliveryReport"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "Resource_Keyword": {
+            "type": "object",
+            "properties": {
+                "keywordId": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "keyword": {
+                    "type": "string"
+                },
+                "reference": {
+                    "type": "string"
+                }
+            }
+        },
+        "Response_ResourceList_Keyword": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_Keyword"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "Resource_ReceivedMessage": {
             "type": "object",
             "properties": {
@@ -203,6 +314,71 @@
                     "type": "string"
                 }
             }
+        },
+        "Response_ResourceList_ReceivedMessage": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_ReceivedMessage"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "Resource_ScheduledMessage": {
+            "type": "object",
+            "properties": {
+                "messageId": {
+                    "type": "string"
+                },
+                "queuedOn": {
+                    "type": "string"
+                },
+                "sendTo": {
+                    "type": "string"
+                },
+                "scheduledFor": {
+                    "type": "string"
+                },
+                "recipientCount": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Response_ResourceList_ScheduledMessage": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_ScheduledMessage"
+                            }
+                        }
+                    }
+                }
+            ]
         },
         "Resource_SentMessage": {
             "type": "object",
@@ -233,12 +409,30 @@
                 }
             }
         },
+        "Response_ResourceList_SentMessage": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_SentMessage"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "Resource_Status": {
             "type": "object",
             "properties": {
-                "exception": {
-                    "type": "string"
-                },
                 "code": {
                     "type": "string"
                 },
@@ -246,6 +440,62 @@
                     "type": "string"
                 }
             }
+        },
+        "Response_ResourceList_Status": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_Status"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "Resource_Subaccount": {
+            "type": "object",
+            "properties": {
+                "accountId": {
+                    "type": "string"
+                },
+                "accountName": {
+                    "type": "string"
+                },
+                "accountNotes": {
+                    "type": "string"
+                }
+            }
+        },
+        "Response_ResourceList_Subaccount": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_Subaccount"
+                            }
+                        }
+                    }
+                }
+            ]
         },
         "Resource_UnsubscribedContact": {
             "type": "object",
@@ -278,6 +528,27 @@
                     "type": "string"
                 }
             }
+        },
+        "Response_ResourceList_UnsubscribedContact": {
+            "allOf": [
+                {
+                    "$ref": "#\/definitions\/Response_Count"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "data"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Resource_UnsubscribedContact"
+                            }
+                        }
+                    }
+                }
+            ]
         }
     },
     "paths": {
@@ -322,12 +593,6 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
                 }
             ]
         },
@@ -368,7 +633,19 @@
                     "type": "string"
                 },
                 {
-                    "name": "isPost",
+                    "name": "email",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "passphrase",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "key",
                     "in": "query",
                     "required": false,
                     "type": "string"
@@ -410,12 +687,6 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
                 }
             ]
         },
@@ -423,9 +694,9 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "Resource response",
+                        "description": "ClickReport response",
                         "schema": {
-                            "$ref": "#\/definitions\/Response_Resource"
+                            "$ref": "#\/definitions\/Response_ResourceList_ClickReport"
                         }
                     }
                 }
@@ -454,12 +725,6 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
                 }
             ]
         },
@@ -467,24 +732,24 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "Resource response",
+                        "description": "Contact response",
                         "schema": {
-                            "$ref": "#\/definitions\/Response_Resource"
+                            "$ref": "#\/definitions\/Response_ResourceList_Contact"
                         }
                     }
                 }
             },
             "parameters": [
                 {
-                    "name": "mobile",
+                    "name": "subaccount",
                     "in": "query",
-                    "required": true,
+                    "required": false,
                     "type": "string"
                 },
                 {
-                    "name": "isPost",
+                    "name": "mobile",
                     "in": "query",
-                    "required": false,
+                    "required": true,
                     "type": "string"
                 }
             ]
@@ -506,12 +771,6 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
                 }
             ]
         },
@@ -519,9 +778,9 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "Resource response",
+                        "description": "DeliveryReport response",
                         "schema": {
-                            "$ref": "#\/definitions\/Response_Resource"
+                            "$ref": "#\/definitions\/Response_ResourceList_DeliveryReport"
                         }
                     }
                 }
@@ -531,6 +790,12 @@
                     "name": "message",
                     "in": "query",
                     "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "reference",
+                    "in": "query",
+                    "required": false,
                     "type": "string"
                 },
                 {
@@ -550,9 +815,79 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
+                }
+            ]
+        },
+        "\/forward\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
                 },
                 {
-                    "name": "isPost",
+                    "name": "keyword",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "destination",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "type",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "remove",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/keywords\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Keyword response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_ResourceList_Keyword"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
                     "in": "query",
                     "required": false,
                     "type": "string"
@@ -563,9 +898,9 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "ResourceList response",
+                        "description": "ReceivedMessage response",
                         "schema": {
-                            "$ref": "#\/definitions\/Response_ResourceList"
+                            "$ref": "#\/definitions\/Response_ResourceList_ReceivedMessage"
                         }
                     }
                 }
@@ -600,9 +935,73 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
+                }
+            ]
+        },
+        "\/remove\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
                 },
                 {
-                    "name": "isPost",
+                    "name": "mobile",
+                    "in": "query",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "group",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "truncate",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ]
+        },
+        "\/scheduledmessages\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "ScheduledMessage response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_ResourceList_ScheduledMessage"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
                     "in": "query",
                     "required": false,
                     "type": "string"
@@ -676,7 +1075,19 @@
                     "type": "string"
                 },
                 {
-                    "name": "isPost",
+                    "name": "unicode",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "interval",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "expires",
                     "in": "query",
                     "required": false,
                     "type": "string"
@@ -687,9 +1098,9 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "ResourceList response",
+                        "description": "SentMessage response",
                         "schema": {
-                            "$ref": "#\/definitions\/Response_ResourceList"
+                            "$ref": "#\/definitions\/Response_ResourceList_SentMessage"
                         }
                     }
                 }
@@ -724,9 +1135,35 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
+                }
+            ]
+        },
+        "\/subaccounts\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Subaccount response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_ResourceList_Subaccount"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
                 },
                 {
-                    "name": "isPost",
+                    "name": "pp",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
                     "in": "query",
                     "required": false,
                     "type": "string"
@@ -745,6 +1182,12 @@
                 }
             },
             "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
                 {
                     "name": "mobile",
                     "in": "query",
@@ -792,12 +1235,6 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
                 }
             ]
         },
@@ -830,9 +1267,35 @@
                     "in": "query",
                     "required": true,
                     "type": "string"
+                }
+            ]
+        },
+        "\/unschedule\/json": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Response_Success"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
                 },
                 {
-                    "name": "isPost",
+                    "name": "message",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "reference",
                     "in": "query",
                     "required": false,
                     "type": "string"
@@ -852,6 +1315,12 @@
             },
             "parameters": [
                 {
+                    "name": "subaccount",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
                     "name": "mobile",
                     "in": "query",
                     "required": true,
@@ -862,12 +1331,6 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
                 }
             ]
         },
@@ -875,9 +1338,9 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "ResourceList response",
+                        "description": "UnsubscribedContact response",
                         "schema": {
-                            "$ref": "#\/definitions\/Response_ResourceList"
+                            "$ref": "#\/definitions\/Response_ResourceList_UnsubscribedContact"
                         }
                     }
                 }
@@ -918,17 +1381,11 @@
                     "in": "query",
                     "required": false,
                     "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
                 }
             ]
         },
         "\/uploadcontacts\/json": {
-            "get": {
+            "post": {
                 "responses": {
                     "200": {
                         "description": "Success response",
@@ -941,49 +1398,43 @@
             "parameters": [
                 {
                     "name": "subaccount",
-                    "in": "query",
+                    "in": "formData",
                     "required": false,
                     "type": "string"
                 },
                 {
                     "name": "file",
-                    "in": "query",
+                    "in": "formData",
                     "required": true,
                     "type": "string"
                 },
                 {
                     "name": "md5sum",
-                    "in": "query",
+                    "in": "formData",
                     "required": false,
                     "type": "string"
                 },
                 {
                     "name": "group",
-                    "in": "query",
+                    "in": "formData",
                     "required": true,
                     "type": "string"
                 },
                 {
                     "name": "update",
-                    "in": "query",
+                    "in": "formData",
                     "required": false,
                     "type": "string"
                 },
                 {
                     "name": "columns",
-                    "in": "query",
+                    "in": "formData",
                     "required": false,
                     "type": "string"
                 },
                 {
                     "name": "postback",
-                    "in": "query",
-                    "required": false,
-                    "type": "string"
-                },
-                {
-                    "name": "isPost",
-                    "in": "query",
+                    "in": "formData",
                     "required": false,
                     "type": "string"
                 }
