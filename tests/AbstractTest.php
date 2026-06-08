@@ -1,9 +1,9 @@
 <?php
 namespace FireText;
 
-abstract class AbstractTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractTest extends \PHPUnit\Framework\TestCase
 {
-    protected function provideFixtures($glob)
+    protected static function provideFixtures($glob)
     {
         $result = array();
         
@@ -16,8 +16,8 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         return $result;
     }
 
-    public function provideResponseDocuments()
+    public static function provideResponseDocuments()
     {
-        return $this->provideFixtures('*.response.xml');
+        return self::provideFixtures('*.response.xml');
     }
 }

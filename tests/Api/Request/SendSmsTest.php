@@ -10,7 +10,7 @@ class SendSmsTest extends \FireText\AbstractTest
         $fixture = $this->provideFixtures('sendsms.response.xml')[0][0];
         
         $request = $this->getMockBuilder('FireText\Api\Request\SendSms')
-            ->setMethods(null)
+            ->onlyMethods([])
             ->disableOriginalConstructor()
             ->getMock();
         
