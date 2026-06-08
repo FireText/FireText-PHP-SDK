@@ -25,7 +25,7 @@ class Forward extends AbstractRequest
         
         $this->setKeyword($keyword);
         $this->setDestination($destination);
-        $this->setType(filter_var($destination, FILTER_VALIDATE_EMAIL) ? 'email' : (filter_var($destination, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) ? 'url' : 'mobile'));
+        $this->setType(filter_var($destination, FILTER_VALIDATE_EMAIL) ? 'email' : (filter_var($destination, FILTER_VALIDATE_URL) ? 'url' : 'mobile'));
     }
     
     public function getSubaccount()

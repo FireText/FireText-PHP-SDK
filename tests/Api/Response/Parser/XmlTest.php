@@ -16,8 +16,8 @@ class XmlTest extends \FireText\AbstractTest
         $status = $xml->getStatus();
         
         $this->assertInstanceOf('FireText\Api\Resource\Status', $status);
-        $this->assertInternalType('int', $status->getCode());
-        $this->assertInternalType('string', $status->getDescription());
+        $this->assertIsInt($status->getCode());
+        $this->assertIsString($status->getDescription());
     }
     
     /**
